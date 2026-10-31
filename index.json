@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "packs": [
+    {
+      "name": "artery/at32",
+      "vendor": "artery",
+      "platform": "at32",
+      "version": "0.1.0",
+      "description": "AT32F421 芯片适配包（AT32 WorkBench 工程指纹 + 芯片参数 + 平台坑位）",
+      "status": "official",
+      "license": "MIT",
+      "requires": {
+        "kernel_api": ">=1 <2",
+        "schema_version": 1
+      },
+      "chips": [
+        "artery/at32f421g8"
+      ],
+      "source": {
+        "type": "git",
+        "url": "https://github.com/xkk6663/elab-pack-artery-at32.git",
+        "ref": "main"
+      },
+      "sha256": "605d71e2d854423f258eabe5ce112450e0b07c7de297c23aa3225a02ffc8192a"
+    }
+  ]
+}
