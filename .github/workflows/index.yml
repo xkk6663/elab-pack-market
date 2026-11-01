@@ -1,0 +1,66 @@
+name: market-index
+
+# 社区适配包市场：每小时自动发现 + 机器校验 + 生成索引。
+# 无人审核：作者仓库打上 `elab-pack` topic 即自动上架；不合格仓库只跳过并写报告。
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-index
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout index repo
+        uses: actions/checkout@v4
+
+      # 只取内核源码（sparse checkout），与用户侧跑的是同一份 `elab pkg index --remote`
+      - name: Checkout elab kernel
+        uses: actions/checkout@v4
+        with:
+          repository: xkk6663/elab-flow
+          path: .elab-src
+          sparse-checkout: services
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Regenerate index
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYTHONPATH: ${{ github.workspace }}/.elab-src/services
+        run: |
+          python -m elab pkg index --remote \
+            --out index.json \
+            --report "${RUNNER_TEMP}/report.json" \
+            --block blocklist.json
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: report
+          path: ${{ runner.temp }}/report.json
+          if-no-files-found: ignore
+
+      - name: Commit if changed
+        run: |
+          rm -rf .elab-src
+          git config user.name "elab-market-bot"
+          git config user.email "elab-market-bot@users.noreply.github.com"
+          git add index.json
+          if git diff --cached --quiet; then
+            echo "索引无变化，跳过提交"
+            exit 0
+          fi
+          git commit -m "chore(index): auto-refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
