@@ -41,9 +41,9 @@
       "source": {
         "type": "git",
         "url": "https://github.com/xkk6663/elab-pack-espressif-esp32.git",
-        "ref": "cf31fa76e589e879b8412dd65e5a8348bea42a83"
+        "ref": "6b96b54d3bd4b98d71de8b0bc8ecd0bee5036a8a"
       },
-      "sha256": "430368d7835dc4a5393b85fafccd84af021aa5b00d66cb47131dc7209ee796ac"
+      "sha256": "075b7e2b4dea04cbc2845b92949451e65fd675d588e4d7e1a9d41a39eab88b3a"
     }
   ]
 }
