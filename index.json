@@ -22,6 +22,28 @@
         "ref": "20eaa90c1ae9b1cfbfa3d84c2b69b1de47978c2d"
       },
       "sha256": "0669317423269bc84472a9962a95879e031a3d237df14372c1f7f1d4afece625"
+    },
+    {
+      "name": "espressif/esp32",
+      "vendor": "espressif",
+      "platform": "esp32",
+      "version": "0.1.0",
+      "description": "Espressif ESP32 系列芯片适配包（ESP32-S31 等；工具链由工程自带 ESP-IDF）",
+      "status": "community",
+      "license": "MIT",
+      "requires": {
+        "kernel_api": ">=1 <2",
+        "schema_version": 1
+      },
+      "chips": [
+        "espressif/esp32s31"
+      ],
+      "source": {
+        "type": "git",
+        "url": "https://github.com/xkk6663/elab-pack-espressif-esp32.git",
+        "ref": "cf31fa76e589e879b8412dd65e5a8348bea42a83"
+      },
+      "sha256": "430368d7835dc4a5393b85fafccd84af021aa5b00d66cb47131dc7209ee796ac"
     }
   ]
 }
